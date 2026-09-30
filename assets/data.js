@@ -1,170 +1,19 @@
 // Data extracted from PDCA_Contreparties_BOL_Complet_UPDATED-5.xlsx
+// Sheet: "BOL Cabin-Principal 702 080" — Projet B10
 const PDCA_REPORTS = [
   {
-    id: "floor-habitacle",
-    navLabel: "BOL Floor-Habitacle",
-    meta: {
-      title: "RAPPORT D'ANOMALIES — BOL FLOOR-HABITACLE",
-      subtitle: "Suivi Technique des Contreparties · BOL · Maintenance & Performance",
-      author: "Hamdi Abdeljawed",
-      role: "Spécialiste Maintenance & Support Technique",
-      reference: "702 077",
-      zone: "BOL Floor-Habitacle",
-      remark:
-        "Les anomalies ci-dessus concernent les contreparties du BOL Floor-Habitacle. La majorité des défauts de continuité relevés sur les contreparties fournies par DIVMAC trouve son origine dans l'interférence entre la fibre de guidage et l'insertion des pins ; une action corrective commune à ces contreparties est donc recommandée en priorité. La contrepartie TR007 fait par ailleurs l'objet d'un suivi spécifique lié à un ajustement de sertissage, sans remise en cause de la conformité de la contrepartie.",
-    },
-    items: [
-      {
-        id: 1,
-        code: "BDX 64",
-        title: "Contrepartie BDX 64",
-        supplier: "DIVMAC",
-        problem: "Défaut de continuité électrique multi-voies",
-        description:
-          "La contrepartie BDX 64 présente un défaut de continuité électrique récurrent sur plusieurs voies, notamment les voies 14, 16 et 18. L'analyse a mis en évidence que la fibre de guidage, dont la fonction est d'assurer l'alignement des pins de la contrepartie avec les connexions du boîtier, gêne l'insertion de ces derniers sur certaines voies. Les pins n'atteignent alors pas correctement les contacts du boîtier, ce qui engendre les défauts de continuité observés.",
-        actions: [
-          "Intervention du fournisseur DIVMAC nécessaire pour effectuer la correction de la fibre de guidage ou le remplacement de la contrepartie, si nécessaire, afin d'assurer un alignement conforme des pins avec les contacts du boîtier et de garantir une continuité électrique fiable.",
-        ],
-        rootCause: "Fibre de guidage",
-        priority: "HAUTE",
-        pilot: "Service Technique / DIVMAC",
-        opened: "2026-08-01",
-        deadline: "2026-08-11",
-        status: "Résolu",
-        progress: 100,
-        photos: ["assets/photos/bdx64.jpeg"],
-      },
-      {
-        id: 2,
-        code: "BDX 61",
-        title: "Contrepartie BDX 61",
-        supplier: "DIVMAC",
-        problem: "Défaut de continuité électrique — voie 15",
-        description:
-          "Un défaut de continuité électrique de même nature est observé sur la contrepartie BDX 61, localisé sur la voie 15. Comme pour la contrepartie BDX 64, la fibre de guidage assurant l'alignement des pins avec les connexions du boîtier gêne leur insertion, empêchant les pins d'atteindre correctement les contacts et provoquant le défaut de continuité constaté.",
-        actions: [
-          "Intervention du fournisseur DIVMAC pour ajuster ou remplacer la fibre de guidage, avec remplacement de la contrepartie si nécessaire.",
-        ],
-        rootCause: "Fibre de guidage",
-        priority: "HAUTE",
-        pilot: "Service Technique / DIVMAC",
-        opened: "2026-08-01",
-        deadline: "2026-08-11",
-        status: "Résolu",
-        progress: 100,
-        photos: ["assets/photos/bdx61.jpeg"],
-      },
-      {
-        id: 3,
-        code: "BDX 24",
-        title: "Contrepartie BDX 24",
-        supplier: "DIVMAC",
-        problem: "Manque et rupture de pins — voies 40 et 15",
-        description:
-          "La contrepartie BDX 24 présente une absence de pins sur les voies 40 et 15. Les pins installés sont surdimensionnés en longueur, ce qui les rend fragiles et sujets à la casse lors de la manipulation. Une tentative de remplacement a été effectuée, mais aucun pin compatible avec le projet B10 n'était disponible en stock magasin PDR au moment de l'intervention.",
-        actions: [
-          "Approvisionner en urgence des pins compatibles projet B10 auprès du fournisseur.",
-          "Remplacer les pins endommagés/manquants sur les voies 40 et 15.",
-        ],
-        rootCause: "Approvisionnement pins",
-        priority: "HAUTE",
-        pilot: "Service Technique / DIVMAC",
-        opened: "2026-08-10",
-        deadline: "2026-10-15",
-        status: "En cours",
-        progress: 65,
-        photos: ["assets/photos/bdx24-1.jpeg", "assets/photos/bdx24-2.jpeg"],
-      },
-      {
-        id: 4,
-        code: "TR045",
-        title: "Contrepartie TR045",
-        supplier: "DIVMAC",
-        problem: "Retard de détection d'étanchéité",
-        description:
-          "La contrepartie TR045 présente un défaut de détection d'étanchéité caractérisé par un retard significatif : la détection finit par s'effectuer, mais avec un temps de réponse anormalement long. Un réglage du régulateur d'étanchéité est nécessaire afin de rétablir un temps de détection conforme aux exigences du poste.",
-        actions: [
-          "Intervention maintenance pour le réglage du régulateur d'étanchéité TR045, puis intervention fournisseur si le problème persiste.",
-        ],
-        rootCause: "Réglage régulateur",
-        priority: "MOYENNE",
-        pilot: "Service Technique / DIVMAC",
-        opened: "2026-08-18",
-        deadline: "2026-08-26",
-        status: "Résolu",
-        progress: 100,
-        photos: ["assets/photos/tr045.jpeg"],
-      },
-      {
-        id: 5,
-        code: "TR007",
-        title: "Contrepartie TR007",
-        supplier: "DIVMAC",
-        problem: "Détection DV NOK en surplus (fermeture incomplète)",
-        description:
-          "La contrepartie TR007 génère de façon récurrente une alarme « DV NOK en surplus ». L'analyse et le diagnostic réalisés ont mis en évidence que le diamètre du fil (3,5 mm) pousse légèrement le deuxième verrouillage (DV), empêchant sa fermeture complète et le laissant en position légèrement ouverte. Le poste détecte donc correctement cet état de DV semi-ouvert, ce qui explique le surplus constaté ; la contrepartie elle-même reste intacte et conforme. Une action sur le sertissage est nécessaire pour résoudre l'anomalie.",
-        actions: [
-          "Intervention méthode pour ajuster les paramètres de sertissage et valider la fermeture complète du DV ; aucune intervention sur la contrepartie n'est nécessaire.",
-        ],
-        rootCause: "Sertissage",
-        priority: "HAUTE",
-        pilot: "Service Technique / DIVMAC",
-        opened: "2026-09-10",
-        deadline: "2026-10-15",
-        status: "En cours",
-        progress: 85,
-        photos: ["assets/photos/tr007-1.jpeg", "assets/photos/tr007-2.jpeg"],
-      },
-    ],
-  },
-  {
     id: "cabin-princ-b10",
-    navLabel: "PTA Cabin Princ B10",
+    navLabel: "BOL Cabin Princ B10",
     meta: {
-      title: "RAPPORT D'ANOMALIES — PTA CABIN PRINC B10",
-      subtitle: "Suivi Technique des Contreparties · PTA · Maintenance & Performance",
-      author: "Hamdi Abdeljawed",
-      role: "Spécialiste Maintenance & Support Technique",
-      reference: "PTA B10",
-      zone: "PTA Cabin Princ B10",
-      remark:
-        "L'anomalie relevée sur la Contrepartie Goulotte concerne un défaut de conception de la détection, dont l'activation nécessite un contact direct avec le boîtier. Une revue de conception par le service PT est recommandée afin de fiabiliser l'activation des pins et d'éliminer tout risque de shunt par l'opérateur.",
-    },
-    items: [
-      {
-        id: 1,
-        code: "Goulotte 3-4",
-        title: "Contrepartie Goulotte",
-        supplier: "EMDEP",
-        problem: "Défaut de détection — Goulottes 3 et 4",
-        description:
-          "Les goulottes 3 et 4 présentent des défauts de détection. Les pins de détection sont présents, mais leur activation nécessite un contact direct avec le boîtier de la goulotte. Cette conception entraîne des difficultés de détection et pousse les opérateurs à shunter les détections.",
-        actions: [
-          "Une intervention du service PT est requise afin de revoir la conception de la détection et garantir une activation fiable des pins sans possibilité de shunt par l'opérateur.",
-        ],
-        rootCause: "Conception détection",
-        priority: "HAUTE",
-        pilot: "Service Technique / PT",
-        opened: "2026-09-15",
-        deadline: "2026-10-28",
-        status: "En cours",
-        progress: 40,
-        photos: ["assets/photos/goulotte-1.jpeg", "assets/photos/goulotte-2.jpeg", "assets/photos/goulotte-3.jpeg"],
-      },
-    ],
-  },
-  {
-    id: "cabin-principal",
-    navLabel: "BOL Cabin-Principal",
-    meta: {
-      title: "RAPPORT D'ANOMALIES — BOL CABIN-PRINCIPAL",
+      title: "RAPPORT D'ANOMALIES — BOL CABIN PRINC B10",
       subtitle: "Suivi Technique des Contreparties · BOL · Maintenance & Performance",
       author: "Hamdi Abdeljawed",
       role: "Spécialiste Maintenance & Support Technique",
       reference: "702 080",
-      zone: "BOL Cabin-Principal",
+      zone: "BOL Cabin Princ B10",
+      cover: "assets/photos/cover-cabin-princ-b10.jpg",
       remark:
-        "Le fournisseur EMDEP est intervenu à plusieurs reprises sans résultat concluant : les essais avec un pin 1006 (longueur d'épaulement 4 mm) ont validé la continuité et le non-verrouillage, mais le service qualité n'a pas accepté cette solution et demande au fournisseur de corriger définitivement le problème. Malgré une intervention du fournisseur sur les contreparties EL135 et TR001, aucun résultat concluant n'a été obtenu : les erreurs de continuité demeurent et ne s'estompent que lors de la manipulation du boîtier. Un remplacement par des contreparties DIVMAC de même référence est recommandé en cas de persistance.",
+        "Le problème principal de cette zone reste la contrepartie EL135 : le fournisseur EMDEP est intervenu à plusieurs reprises, conjointement avec l'équipe maintenance, sans résultat concluant. Le remplacement par une contrepartie DIVMAC de même référence est en attente de mise en œuvre pour résoudre définitivement l'anomalie. Concernant la contrepartie TR001, le remplacement par une nouvelle contrepartie EMDEP a permis de résoudre le défaut de continuité ; un suivi terrain reste en cours afin de confirmer la stabilité du résultat dans le temps.",
     },
     items: [
       {
@@ -185,7 +34,6 @@ const PDCA_REPORTS = [
         opened: "2026-07-28",
         deadline: "2026-08-11",
         status: "Résolu",
-        progress: 100,
         photos: ["assets/photos/tr010.jpeg"],
       },
       {
@@ -205,7 +53,6 @@ const PDCA_REPORTS = [
         opened: "2026-07-28",
         deadline: "2026-08-11",
         status: "Résolu",
-        progress: 100,
         photos: ["assets/photos/tr011.jpeg"],
       },
       {
@@ -226,7 +73,6 @@ const PDCA_REPORTS = [
         opened: "2026-09-05",
         deadline: "2026-10-15",
         status: "En cours",
-        progress: 85,
         photos: ["assets/photos/el135-1.jpeg", "assets/photos/el135-2.jpeg"],
       },
       {
@@ -246,7 +92,6 @@ const PDCA_REPORTS = [
         opened: "2026-07-28",
         deadline: "2026-08-11",
         status: "Résolu",
-        progress: 100,
         photos: ["assets/photos/by001-1.jpeg", "assets/photos/by001-2.jpeg", "assets/photos/by001-3.jpeg"],
       },
       {
@@ -256,19 +101,18 @@ const PDCA_REPORTS = [
         supplier: "EMDEP",
         problem: "Défaut de continuité électrique — nécessite une manipulation du boîtier",
         description:
-          "La contrepartie TR001 présente un défaut de continuité électrique récurrent. Dans la majorité des cas, l'opérateur doit manipuler le boîtier ainsi que les fils qui y sont raccordés (réajustement, légère pression, repositionnement) pour que le test de continuité soit validé. En l'absence de cette manipulation manuelle, la contrepartie génère systématiquement une erreur de continuité (voie 4 / voie 1), ce qui indique un problème de contact au niveau des pins ou de l'insertion dans le boîtier.",
+          "La contrepartie TR001 présentait un défaut de continuité électrique récurrent. Dans la majorité des cas, l'opérateur devait manipuler le boîtier ainsi que les fils qui y sont raccordés (réajustement, légère pression, repositionnement) pour que le test de continuité soit validé. En l'absence de cette manipulation manuelle, la contrepartie générait systématiquement une erreur de continuité (voie 4 / voie 1), ce qui indiquait un problème de contact au niveau des pins ou de l'insertion dans le boîtier.",
         actions: [
           "Remplacement des pins de continuité par des pins conformes (type et longueur d'épaulement) — sans résultat concluant.",
-          "Remplacement de la contrepartie par une nouvelle CP de type EMDEP — défaut toujours présent.",
-          "Prévoir le remplacement de la contrepartie par une CP de type DIVMAC.",
+          "Remplacement de la contrepartie par une nouvelle contrepartie de type EMDEP : action effectuée, défaut résolu.",
+          "La nouvelle contrepartie EMDEP reste en cours de suivi terrain afin de confirmer la stabilité du résultat dans le temps.",
         ],
         rootCause: "Insertion pins",
         priority: "HAUTE",
         pilot: "Service Technique / EMDEP",
         opened: "2026-09-08",
         deadline: "2026-10-15",
-        status: "En cours",
-        progress: 80,
+        status: "Résolu",
         photos: ["assets/photos/tr001-1.jpeg", "assets/photos/tr001-2.jpeg"],
       },
       {
@@ -289,7 +133,6 @@ const PDCA_REPORTS = [
         opened: "2026-07-28",
         deadline: "2026-08-11",
         status: "Résolu",
-        progress: 100,
         photos: ["assets/photos/el161.jpeg"],
       },
       {
@@ -309,7 +152,6 @@ const PDCA_REPORTS = [
         opened: "2026-07-28",
         deadline: "2026-08-11",
         status: "Résolu",
-        progress: 100,
         photos: ["assets/photos/ch024-1.jpeg", "assets/photos/ch024-2.jpeg", "assets/photos/ch024-3.jpeg"],
       },
       {
@@ -329,7 +171,6 @@ const PDCA_REPORTS = [
         opened: "2026-08-10",
         deadline: "2026-08-24",
         status: "Résolu",
-        progress: 100,
         photos: ["assets/photos/ch010.jpeg"],
       },
     ],

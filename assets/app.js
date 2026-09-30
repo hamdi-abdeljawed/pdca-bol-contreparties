@@ -23,37 +23,6 @@
     return Math.round((d2 - d1) / 86400000);
   }
 
-  // ---------- Sheet tabs ----------
-  function renderTabs() {
-    const el = document.getElementById("sheetTabs");
-    el.innerHTML = PDCA_REPORTS.map(
-      (r) => `
-      <button class="sheet-tab ${r.id === state.reportId ? "active" : ""}" data-report="${r.id}">
-        ${r.navLabel}
-        <span class="sheet-tab__count">${r.items.length}</span>
-      </button>`
-    ).join("");
-  }
-
-  function wireTabs() {
-    document.getElementById("sheetTabs").addEventListener("click", (e) => {
-      const btn = e.target.closest(".sheet-tab");
-      if (!btn) return;
-      state.reportId = btn.dataset.report;
-      state.status = "all";
-      state.priority = "all";
-      state.query = "";
-      document.getElementById("searchInput").value = "";
-      resetChips();
-      renderAll();
-    });
-  }
-
-  function resetChips() {
-    document.querySelectorAll("#statusFilters .chip").forEach((c) => c.classList.toggle("active", c.dataset.value === "all"));
-    document.querySelectorAll("#priorityFilters .chip").forEach((c) => c.classList.toggle("active", c.dataset.value === "all"));
-  }
-
   // ---------- Header / hero text ----------
   function renderHeaderText() {
     const { meta, navLabel } = currentReport();
@@ -178,12 +147,8 @@
           <span class="meta-pill">📅 ${fmtDate(item.deadline)}</span>
         </div>
 
-        <div class="card__progress">
-          <div class="progress-row">
-            <span class="status"><span class="status-dot ${statusDotClass(item.status)}"></span>${item.status}</span>
-            <span>${item.progress}%</span>
-          </div>
-          <div class="progress-bar"><div class="progress-bar__fill" style="width:${item.progress}%"></div></div>
+        <div class="card__status-row">
+          <span class="status"><span class="status-dot ${statusDotClass(item.status)}"></span>${item.status}</span>
         </div>
 
         <div class="card__footer">
@@ -311,7 +276,7 @@
       <p>
         👤 Pilote : ${item.pilot}<br/>
         📅 Délai de clôture : ${fmtDate(item.deadline)}<br/>
-        📌 Situation : ${item.status} (${item.progress}%)
+        📌 Situation : ${item.status}
       </p>
     `;
   }
@@ -370,7 +335,6 @@
       "Pilote": i.pilot,
       "Délai de clôture": fmtDate(i.deadline),
       "Situation": i.status,
-      "% Avancement": i.progress,
     }));
   }
 
@@ -378,7 +342,7 @@
     const rows = exportRows();
     if (!rows.length) { alert("Aucune ligne à exporter avec les filtres actuels."); return; }
     const ws = XLSX.utils.json_to_sheet(rows);
-    ws["!cols"] = [{ wch: 4 }, { wch: 24 }, { wch: 12 }, { wch: 34 }, { wch: 18 }, { wch: 10 }, { wch: 22 }, { wch: 14 }, { wch: 10 }, { wch: 12 }];
+    ws["!cols"] = [{ wch: 4 }, { wch: 24 }, { wch: 12 }, { wch: 34 }, { wch: 18 }, { wch: 10 }, { wch: 22 }, { wch: 14 }, { wch: 10 }];
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "PDCA");
     XLSX.writeFile(wb, `PDCA_${currentReport().id}.xlsx`);
@@ -415,7 +379,6 @@
 
   // ---------- Master render ----------
   function renderAll() {
-    renderTabs();
     renderHeaderText();
     renderKpis();
     renderScorecard();
@@ -424,7 +387,6 @@
 
   function init() {
     renderAll();
-    wireTabs();
     wireChips("statusFilters", "status");
     wireChips("priorityFilters", "priority");
     wireSearch();
