@@ -116,44 +116,31 @@
   }
 
   function cardTemplate(item) {
-    const photosHtml = item.photos
-      .slice(0, 2)
-      .map(
-        (src, idx) =>
-          `<img src="${src}" alt="${item.title} - photo ${idx + 1}" data-item="${item.id}" data-idx="${idx}" class="js-photo" loading="lazy" />`
-      )
-      .join("");
+    const cover = item.photos[0];
 
     return `
-    <article class="card" data-id="${item.id}">
-      <div class="card__photos">
-        ${photosHtml}
-        ${item.photos.length > 1 ? `<span class="card__photo-count">📷 ${item.photos.length}</span>` : ""}
+    <article class="arow" data-id="${item.id}">
+      <div class="arow__photo js-photo" data-item="${item.id}" data-idx="0">
+        <img src="${cover}" alt="${item.title}" loading="lazy" />
+        ${item.photos.length > 1 ? `<span class="arow__photo-count">📷 ${item.photos.length}</span>` : ""}
+        <span class="status-dot ${statusDotClass(item.status)} arow__status-dot" title="${item.status}"></span>
       </div>
-      <div class="card__body">
-        <div class="card__top">
-          <div>
-            <span class="card__code">${item.code} · ${item.supplier}</span>
-            <h3 class="card__title">${item.title}</h3>
-          </div>
-          <span class="badge ${badgeClass(item.priority)}">${item.priority}</span>
-        </div>
 
-        <p class="card__problem"><strong>Problème :</strong> ${item.problem}</p>
+      <div class="arow__cell arow__cell--problem" data-label="Problème">
+        <span class="arow__code">${item.code} · ${item.supplier}</span>
+        <p class="arow__problem">${item.problem}</p>
+        <span class="badge ${badgeClass(item.priority)} arow__badge">${item.priority}</span>
+      </div>
 
-        <div class="card__meta">
-          ${item.rootCause ? `<span class="meta-pill meta-pill--cause">🎯 ${item.rootCause}</span>` : ""}
-          <span class="meta-pill">👤 ${item.pilot}</span>
-          <span class="meta-pill">📅 ${fmtDate(item.deadline)}</span>
-        </div>
+      <div class="arow__cell arow__cell--pilot" data-label="Pilote">${item.pilot}</div>
 
-        <div class="card__status-row">
-          <span class="status"><span class="status-dot ${statusDotClass(item.status)}"></span>${item.status}</span>
-        </div>
+      <div class="arow__cell arow__cell--deadline" data-label="Délai">${fmtDate(item.deadline)}</div>
 
-        <div class="card__footer">
-          <span class="card__link js-detail" data-id="${item.id}">Voir le détail →</span>
-        </div>
+      <div class="arow__cell arow__cell--action">
+        <button class="btn btn--detail js-detail" data-id="${item.id}">
+          Détails
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </article>`;
   }
@@ -276,7 +263,7 @@
       <p>
         👤 Pilote : ${item.pilot}<br/>
         📅 Délai de clôture : ${fmtDate(item.deadline)}<br/>
-        📌 Situation : ${item.status}
+        📌 Situation : <span class="status"><span class="status-dot ${statusDotClass(item.status)}"></span>${item.status}</span>
       </p>
     `;
   }
@@ -316,9 +303,9 @@
         drawer.open(findItem(detail.dataset.id));
         return;
       }
-      const card = e.target.closest(".card");
-      if (card && !e.target.closest("img")) {
-        drawer.open(findItem(card.dataset.id));
+      const row = e.target.closest(".arow");
+      if (row) {
+        drawer.open(findItem(row.dataset.id));
       }
     });
   }
